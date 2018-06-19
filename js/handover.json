@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "handover-207610",
+  "private_key_id": "e66b265898ec1d88ad9220e29a9a52a020cc36d6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDT/ZkEI8XRebCN\n/P2etciEhJXNUhy3w+9wFNDS8rp+YHYx+Ei/LGjT7ZHS0rKTbhBKiAUxVj9wVctt\nQomWHx3KbUPKaeWbvtcB91p94BM73SLsQAxqOmrcIEbpqrIA06LY5xT9NmPja78w\nIpOaHecOyuXFyjErWfT5YngUUxbw0P5l1QVTX1papHRzQR+gfe9bH75Wgjw7jbwQ\nacPWFBD6VZo8HO1rIm7R4iR6xuuBQ3NU1vP4SooZO6iIYXrmr+xDTbAEYT24Wsnj\n5KPJB90C5exgDsS6tldORO/bM+XHcDI5ftHm37YV6oD320RFaMOlctobVLHdWPai\nVWqBxPSHAgMBAAECggEAAOVYWe5R2QrRa0725brYtQ0fd495KOdYRG3gPqmDtd1m\nHFIHGegIj/5BwnfnGMG2bzhaeeE/KSffWywyPGzU2r6lspQsrm09Yq4941A3m/nj\nEyoilv0bDuN6CAL/xpRFxUFG5u5GQlTSWnGvRXb29pbZJwvLR1MLpvLr7dYPSaTa\ny04q58K2jqNrGWGp0Y8uZMqdVznLudyiOOrPPaOlfSQ90ctbM64kwSL/1gDUwc2a\nOo7TpfscSBI1a7n2mbW7A91hGDqEOh2HwPPqbz+iK70quY87MdrrMpVJkMgiF+sB\nnnv7OTDq9JOWmEX66AaKwsR9lT8l5G66f0sus6yYlQKBgQD9UklVRA0P1vOCEJ92\n/kj0COw4d3u2MHwQ8ShRwRPccXM7ABOEtDYfe629RI1+dcggfylyxqUVVSC4M5Nc\nqIbS9lsF/aOL44+Ltvs83v4+g39SZlJweeYr6zgHjftII7bPxKZd/BlTjPGq2+qp\n+313EdVxMmWhkSaN7Q3hbR0StQKBgQDWO27pCvInIvsHMIwATxb8IOKF6X5NeosR\nLSl7DXYvnII1QGy9rq0N/Absc//FaAH1uLlLZ+f6RLyGGExpah16qCBQKUzTshuH\n0P+5qpaCdaHTpIagQGyCBaMmKrsqlgQc/8qJzJGQQiaAs8dE2vpSOji59ZbyidYv\nPOGUluMDywKBgQCPGhLvJfgzAHyi9vz+XXuc0AWRiH3MV+teLr1WIbo0h6pOpCZi\niuMgOd/V0YoU7DhXkz445lqPiH1pUUlnyJQRTLXy1muzNKP8iyu2IUqCygn85Gyh\nuVr7aG9IZT6UbAhzqmVJJoawGijTGlSgHb+sqdhnj861zKd4+Xcj513LGQKBgHZd\nrDASnizFhRE534CkMjzoJoB6vBAu7vt0ioC0tWIlBURK7kn3YyJg56pphR4bE0oi\n4C4roN6Eb+1fK4jq2pLUpdXkm9AzjkaCUWjSOgqm19zKAKA2OD22w6fo4DTtYiRr\nqApu/tZH1mIx8p22p6wbAxCsAtTLF45OAw1IOPH1AoGAVN6QqxD+oWY9JX8E+kWz\nrZzaG14YCiuhx63xoXlF4dyWyTjj8BP5/iRoxSNKkb5KSodisLO2ZkgkEJZjlu90\nOrbAdknoxylyLvFKG/xXO1xK5/PRoI1JtS0LHC8STKU1ZQrWg9chUeela9KLAqOp\nXeAkzLAdUBgh6rsUDDY1w7c=\n-----END PRIVATE KEY-----\n",
+  "client_email": "handovertest@handover-207610.iam.gserviceaccount.com",
+  "client_id": "104991769559894718727",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/handovertest%40handover-207610.iam.gserviceaccount.com"
+}
