@@ -11,11 +11,13 @@ from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file,client,tools
 from oauth2client.service_account import ServiceAccountCredentials
+from pprint import pprint
 
 app = Flask(__name__)
 
 @app.route('/<string:text>')
 def apicall(text):
+    
     train = [
         ('I am on this task', 'On progress'),
         ('The billing cycle 2 is complete', 'Completed task'),
@@ -64,8 +66,8 @@ def apicall(text):
     cl = NaiveBayesClassifier(train)
     str = cl.classify(text)
 
-  
-    SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
+
+    SCOPES = 'https://www.googleapis.com/auth/drive'
     store = file.Storage('credentials.json')
     creds = store.get()
     if not creds or creds.invalid:
@@ -74,10 +76,29 @@ def apicall(text):
     service = build('sheets', 'v4', http=creds.authorize(Http()))
     
     spreadsheet_id = '1TQM0ys75pq2GmQFPIpM1_hiucmR2dhoPhYz6CuAN_lE'
+
+    range_ = 'sheet1!A1'
+
+    value_input_option = 'USER_ENTERED'
+    insert_data_option = 'INSERT_ROWS'
+
+    value_range_body = {
+        "values": [
+            [
+             text
+            ],
+            [
+              str
+            ]
+        ] 
+    }   
+     
+    #request = service.spreadsheets().values().update(spreadsheetId=spreadsheet_id, range=range_,valueInputOption=value_input_option,insertDataOption=insert_data_option, body=value_range_body)
+    request = service.spreadsheets().values().append(spreadsheetId=spreadsheet_id, range=range_, valueInputOption=value_input_option, insertDataOption=insert_data_option, body=value_range_body)
+    response = request.execute() 
+    pprint(response)
+
     
-
-  
-
     return render_template('stt.html',values=str)
 if __name__ == "__main__":
     app.run()        
