@@ -78,19 +78,35 @@ def apicall(text):
     service = build('sheets', 'v4', http=creds.authorize(Http()))
     
     spreadsheet_id = '1TQM0ys75pq2GmQFPIpM1_hiucmR2dhoPhYz6CuAN_lE'
-
-    range_ = 'sheet1!B1'
+    
+    
+    range_ = 'sheet1!A1'
+           
 
     value_input_option = 'USER_ENTERED'
     insert_data_option = 'INSERT_ROWS'
+    
 
-    value_range_body = {
+    if str== "On progress":
+        value_range_body = {
         "values": [
-            [
-             text,str
-            ]            
+            [ text , "" , ""]            
         ] 
     }   
+    elif str== "Completed task":
+        value_range_body = {
+        "values": [
+            ["", text, ""]            
+        ] 
+    }   
+    else:
+        value_range_body = {
+        "values": [
+            [ "", "",text]            
+        ] 
+    }   
+       
+    
      
     
     request = service.spreadsheets().values().append(spreadsheetId=spreadsheet_id, range=range_, valueInputOption=value_input_option, insertDataOption=insert_data_option, body=value_range_body)
