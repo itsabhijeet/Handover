@@ -2,7 +2,7 @@ import os
 import pandas as pd 
 import pickle
 import numpy as np
-from flask import Flask, jsonify, request, Markup, render_template,redirect
+from flask import Flask, jsonify, request, Markup, render_template,redirect,flash,url_for
 from textblob.classifiers import NaiveBayesClassifier
 from flaskext.mysql import MySQL
 import gspread
@@ -13,12 +13,19 @@ from oauth2client import file,client,tools
 from oauth2client.service_account import ServiceAccountCredentials
 from pprint import pprint
 from flask_mail import Mail,Message
-app = Flask(__name__)
+from flask_wtf import Form 
+from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 
+app = Flask(__name__)
+app.secret_key = "abhilearner"
+class EmailForm(Form):
+    email= TextField("Email",[validators.Required("Recepients Email id"),validators.Email("Enter Email")])
 
 
 @app.route('/favicon.ico')
-
+def kuchbhi():
+    print ("Ignore")
+    return ('',204)
  
 
 @app.route('/<string:text>')
@@ -46,23 +53,28 @@ def apicall(text):
     value_input_option = 'USER_ENTERED'
     insert_data_option = 'INSERT_ROWS'
     
-
-    if str== "On progress":
+    if str== "Exception":
+       value_range_body = {
+        "values": [
+            [ text ,"", "" , ""]            
+        ] 
+    }   
+    elif str== "On progress":
         value_range_body = {
         "values": [
-            [ text , "" , ""]            
+            [ "",text , "" , ""]            
         ] 
     }   
     elif str== "Completed task":
         value_range_body = {
         "values": [
-            ["", text, ""]            
+            ["","", text, ""]            
         ] 
     }   
     else:
         value_range_body = {
         "values": [
-            [ "", "",text]            
+            [ "","", "",text]            
         ] 
     }   
        
@@ -76,11 +88,25 @@ def apicall(text):
     
     return render_template('stt.html',values=str)
 
+@app.route('/takeemail',methods=['GET','POST'])
+def takeemail():
+     form = EmailForm(request.form)
+     
+     if request.method == 'POST':
+         email=request.form['email']
+         print (email)
+
+         if form.validate():
+             flash('Recieved :' + email)
+             return redirect(url_for('sendemail',email=email))
+         else:
+             flash('Email Not correct bro!') 
+     return render_template('takeemail.html',form=form)
 
 
 
-@app.route('/sendemail')
-def sendemail():
+@app.route('/sendemail/<email>')
+def sendemail(email):
     SCOPES = 'https://www.googleapis.com/auth/drive'
     store = file.Storage('credentials.json')
     creds = store.get()
@@ -95,28 +121,41 @@ def sendemail():
     RANGE_NAME = 'sheet1'
     read = service.spreadsheets().values().get(spreadsheetId=spreadsheet_id,range=RANGE_NAME,majorDimension='COLUMNS').execute()
     values = read.get('values', [])
-    onprogress = []  #array to hold 
+    
+    str0 = ""
     str1 = ""
     str2 = ""
     str3 = ""
-    completedtask = []
-    followup = []
+    # Making string from Spreadsheet of type Exceptions, etc.
+    ignore=0
     for item in values[0]:
-        if item!='':
-            onprogress.append(item)
-            str1 = str1 + item 
-            str1 = str1 + '\n'
-            
+        if item!='' and ignore:                        
+            str0 = str0 + item 
+            str0 = str0 + "<br>"
+        else: 
+            ignore=1    
+    ignore=0     
     for item in values[1]:
-        if item!='':
-            completedtask.append(item)
-            str2 = str2 + item
-            str2 = str2 + '\n'
+        if item!='' and ignore:                        
+            str1 = str1 + item 
+            str1 = str1 + "<br>"
+        else: 
+            ignore=1    
+    ignore=0        
     for item in values[2]:
-        if item!='':
-            followup.append(item)
-            str3 = str3 + item
-            str3 = str3 + '\n'                
+        if item!='' and ignore:                        
+            str2 = str2 + item 
+            str2 = str2 + "<br>"
+        else: 
+            ignore=1
+    ignore=0
+    for item in values[3]:
+        if item!='' and ignore:                        
+            str3 = str3 + item 
+            str3 = str3 + "<br>"
+        else: 
+            ignore=1
+
               
     #print (onprogress)
     
@@ -131,8 +170,8 @@ def sendemail():
     mail = Mail(app)
 
     #Ab bhej Rahe
-    msg = Message('Handover Updates', sender = 'handoverabhi@gmail.com', recipients = ['ohyesabhiblogger@gmail.com'])
-    msg.html = "<h3>Following are the changes:</h3>\n <b>On progess:</b>\n " +  str1 + "<b>Completed Task :</b> \n" + str2 + "<b>Follow Up :\n" + str3 
+    msg = Message('Handover Updates', sender = 'handoverabhi@gmail.com', recipients = [email])
+    msg.html = "<h3 style='background-color:DodgerBlue;'> Following are the changes: </h3> <hr> <h5 style='background-color:Tomato;'> Exceptions: </h5> <br> " + str0 + "<h5 style='background-color:Orange;'>On progess:</h5> <br> " +  str1 + "<br><h5 style='background-color:Green;'>Completed Task :</h5> <br>" + str2 + "<br> <h5 style='background-color:Gray;'>Follow Up :</h5><br>" + str3 
     mail.send(msg)
     
     return render_template("email.html")

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Email</title>
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <link rel='stylesheet prefetch' href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'>
+
+      <link rel="stylesheet" href="{{ url_for('static',filename='styles/takeemail.css') }}">
+
+  
+</head>
+
+<body>
+
+  <div class="container">
+  
+  <div class="demo-flex-spacer"></div>
+
+  <div class="webflow-style-input">
+    <form action="http://localhost:5000/takeemail" method="POST">
+    <input class="" name="email" type="email" placeholder="What's your email?"></input>
+    <button type="submit"><i class="icon ion-android-arrow-forward"></i></button>
+    </form>
+  </div>
+
+  <br>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+ 
+        {% for message in messages %}
+            {% if "Error" not in message[1]: %}
+                <div class="alert alert-info">
+                <strong>Success! </strong> {{ message[1] }}
+                </div>
+            {% endif %}
+ 
+            {% if "Error" in message[1]: %}
+                <div class="alert alert-warning">
+                {{ message[1] }}
+                </div>
+            {% endif %}
+        {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+  <div class="demo-flex-spacer"></div>
+  <h1 class="demo">Handover Automated!</h1>
+  
+
+</div>
+  
+  
+
+</body>
+
+</html>
