@@ -172,7 +172,7 @@ def sendemail(email):
 
     #Ab bhej Rahe
     msg = Message('Handover Updates', sender = 'handoverabhi@gmail.com', recipients = [email])
-    msg.html = "<h3 style='background-color:DodgerBlue;'> Following are the changes: </h3> <hr> <h5 style='background-color:Tomato;'> Exceptions: </h5> <br> " + str0 + "<h5 style='background-color:Orange;'>On progess:</h5> <br> " +  str1 + "<br><h5 style='background-color:Green;'>Completed Task :</h5> <br>" + str2 + "<br> <h5 style='background-color:Gray;'>Follow Up :</h5><br>" + str3 
+    msg.html = "<h3 style='background-color:DodgerBlue;'> Following are the changes: </h3> <hr> <h4 style='background-color:Tomato;'> Exceptions: </h4> <br> " + str0 + "<h4 style='background-color:Orange;'>On progess:</h4> <br> " +  str1 + "<br><h4 style='background-color:Green;'>Completed Task :</h4> <br>" + str2 + "<br> <h4 style='background-color:Gray;'>Follow Up :</h4><br>" + str3 
     mail.send(msg)
     
     return render_template("email.html")
