@@ -31,10 +31,11 @@ def kuchbhi():
 @app.route('/<string:text>')
 def apicall(text): 
     filename = 'model.pk'
-    with open(r'C:\xampp\htdocs\animation\js\\' + filename,'rb') as filedif:
-     cl = pickle.load(filedif)       
+    with open(filename,'rb') as filedif:
+     cl = pickle.load(filedif)     
+     print ('Model loaded')  
     str = cl.classify(text)
-
+   
 
     SCOPES = 'https://www.googleapis.com/auth/drive'
     store = file.Storage('credentials.json')
