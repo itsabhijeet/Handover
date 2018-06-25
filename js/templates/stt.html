@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Web Speech API - Demo Cross Browser</title>
+  <title>Handover Automation</title>
   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
@@ -26,6 +26,24 @@
     text-decoration: none;
     text-transform: uppercase;
 }
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  background-image: radial-gradient(circle at 0% 0%, #373b52, #252736 51%, #1d1e26);
+}
+h1,h5,h3 {
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: normal;
+  margin-bottom: 1rem;
+  color: #f5f6ff;
+}
+.col s12
+{
+  display: inline-block;
+  
+}
   </style>
   
 </head>
@@ -35,7 +53,7 @@
 
   
 <div class="container">
-  <h1 id="indicator">WebSpeech Demo</h1>
+  <h1 id="indicator">Handover Updates</h1>
   <div class="row">
     <div class="col s6">
       <button class="waves-effect waves-light btn-large" id="start" style="width:100%;">Start</button>
@@ -44,18 +62,20 @@
       <button class="waves-effect waves-light btn-large" id="stop" style="width:100%;">Stop</button>
     </div>
     <div class="col s12">
-      <h3>Results:</h3>
-      <div id="results"></div>
-      <div id="classify"> <p> <b>Classified as : {{values}} </b>
-        
-        </p> 
-     
+      <h3>Results:  {{text}}  
+
+        <!--<div id="results">
+          <div id="classify">-->
+           <h5><b>Classified as : {{values}} </b>  </h5>
+              </h3>
+      
+      
       <a href="http://localhost/animation/stt.html"> Add Another </a>
       <br><br><br>
       <center>
       <button type="button" class="button"> <a href="/takeemail"> Send Email </a> </button>
       </center>
-    </div>
+    
     </div>
   </div>
 </div>
