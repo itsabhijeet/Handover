@@ -87,7 +87,7 @@ def apicall(text):
     pprint(response)
 
     
-    return render_template('stt.html',values=str)
+    return render_template('stt.html',values=str,text=text)
 
 @app.route('/takeemail',methods=['GET','POST'])
 def takeemail():
