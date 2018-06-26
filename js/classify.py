@@ -105,6 +105,10 @@ def takeemail():
      return render_template('takeemail.html',form=form)
 
 
+@app.route('/showsheet')
+def show():
+    return render_template('sheets.html')
+
 
 @app.route('/sendemail/<email>')
 def sendemail(email):
@@ -164,8 +168,8 @@ def sendemail(email):
     
     app.config['MAIL_SERVER']='smtp.gmail.com'
     app.config['MAIL_PORT'] = 465
-    app.config['MAIL_USERNAME'] = 'handoverabhi@gmail.com'
-    app.config['MAIL_PASSWORD'] = 'handover'
+    app.config['MAIL_USERNAME'] = ''
+    app.config['MAIL_PASSWORD'] = ''
     app.config['MAIL_USE_TLS'] = False
     app.config['MAIL_USE_SSL'] = True
     mail = Mail(app)
