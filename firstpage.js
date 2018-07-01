@@ -30,7 +30,7 @@ recognition.onerror = function(){
 recognition.onresult = function(event) {
   var text = event.results[0][0].transcript;
   result_container.innerText = text;
-  var str = "http://127.0.0.1:5000/"  ;
+  var str = "http://127.0.0.1:8000/"  ;
   str = str + text;
   console.log(str);
   window.location.href = str;

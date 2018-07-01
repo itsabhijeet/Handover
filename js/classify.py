@@ -6,7 +6,6 @@ from flask import Flask, jsonify, request, Markup, render_template,redirect,flas
 from textblob.classifiers import NaiveBayesClassifier
 from flaskext.mysql import MySQL
 import gspread
-
 from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file,client,tools
@@ -15,6 +14,7 @@ from pprint import pprint
 from flask_mail import Mail,Message
 from flask_wtf import Form 
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
+from time import strftime,localtime
 
 app = Flask(__name__)
 app.secret_key = "abhilearner"
@@ -25,7 +25,7 @@ class EmailForm(Form):
 @app.route('/favicon.ico')
 def kuchbhi():
     print ("Ignore")
-    return ('',204)
+    return ('',204) 
  
 
 @app.route('/<string:text>')
@@ -36,7 +36,9 @@ def apicall(text):
      print ('Model loaded')  
     str = cl.classify(text)
    
-
+    #Adding time
+    timeprefix = '[' + strftime("%H:%M:%S",localtime()) + '] : '    
+    text = timeprefix + text 
     SCOPES = 'https://www.googleapis.com/auth/drive'
     store = file.Storage('credentials.json')
     creds = store.get()
@@ -77,16 +79,13 @@ def apicall(text):
         "values": [
             [ "","", "",text]            
         ] 
-    }   
-       
-    
-     
+    }       
+      
     
     request = service.spreadsheets().values().append(spreadsheetId=spreadsheet_id, range=range_, valueInputOption=value_input_option, insertDataOption=insert_data_option, body=value_range_body)
     response = request.execute() 
     pprint(response)
-
-    
+       
     return render_template('stt.html',values=str,text=text)
 
 @app.route('/takeemail',methods=['GET','POST'])
@@ -101,9 +100,13 @@ def takeemail():
              flash('Recieved :' + email)
              return redirect(url_for('sendemail',email=email))
          else:
-             flash('Email Not correct bro!') 
+             flash('Email Not correct !') 
      return render_template('takeemail.html',form=form)
 
+
+@app.route('/showsheet')
+def show():
+    return render_template('sheets.html')
 
 
 @app.route('/sendemail/<email>')
@@ -164,19 +167,19 @@ def sendemail(email):
     
     app.config['MAIL_SERVER']='smtp.gmail.com'
     app.config['MAIL_PORT'] = 465
-    app.config['MAIL_USERNAME'] = '' #email
-    app.config['MAIL_PASSWORD'] = '' #password
+    app.config['MAIL_USERNAME'] = 'handoverabhi@gmail.com'
+    app.config['MAIL_PASSWORD'] = ''  #password
     app.config['MAIL_USE_TLS'] = False
     app.config['MAIL_USE_SSL'] = True
     mail = Mail(app)
 
     #Ab bhej Rahe
     msg = Message('Handover Updates', sender = 'handoverabhi@gmail.com', recipients = [email])
-    msg.html = "<h3 style='background-color:DodgerBlue;'> Following are the changes: </h3> <hr> <h5 style='background-color:Tomato;'> Exceptions: </h5> <br> " + str0 + "<h5 style='background-color:Orange;'>On progess:</h5> <br> " +  str1 + "<br><h5 style='background-color:Green;'>Completed Task :</h5> <br>" + str2 + "<br> <h5 style='background-color:Gray;'>Follow Up :</h5><br>" + str3 
+    msg.html = "<h3 style='color:DodgerBlue;'> Daily Report: </h3> <hr> <h4 style='color:Tomato;'> Exceptions: </h4> <hr> <br> " + str0 + "<h4 style='color:Orange;'>On progess:</h4> <hr> <br> " +  str1 + "<br><h4 style='color:Green;'>Completed Task :</h4> <hr> <br>" + str2 + "<br> <h4 style='color:Gray;'>Follow Up :</h4><hr> <br>" + str3 
     mail.send(msg)
     
     return render_template("email.html")
 
 if __name__ == "__main__":
-    app.run()   
+    app.run(host='127.0.0.1',port=8000)   
        

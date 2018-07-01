@@ -21,31 +21,11 @@
   <div class="demo-flex-spacer"></div>
 
   <div class="webflow-style-input">
-    <form action="http://localhost:5000/takeemail" method="POST">
-    <input class="" name="email" type="email" placeholder="What's your email?"></input>
+    <form action="/takeemail" method="POST">
+    <input class="" name="email" type="email" placeholder="Recepients Email"></input>
     <button type="submit"><i class="icon ion-android-arrow-forward"></i></button>
     </form>
-  </div>
-
-  <br>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
- 
-        {% for message in messages %}
-            {% if "Error" not in message[1]: %}
-                <div class="alert alert-info">
-                <strong>Success! </strong> {{ message[1] }}
-                </div>
-            {% endif %}
- 
-            {% if "Error" in message[1]: %}
-                <div class="alert alert-warning">
-                {{ message[1] }}
-                </div>
-            {% endif %}
-        {% endfor %}
-            {% endif %}
-        {% endwith %}
+  </div>  
 
   <div class="demo-flex-spacer"></div>
   <h1 class="demo">Handover Automated!</h1>
